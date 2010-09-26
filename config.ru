@@ -1,7 +1,9 @@
 require 'rubygems'
 require 'sinatra'
 
-ROOT_DIR = File.expand_path(File.dirname(__FILE__))
+ROOT_DIR = File.expand_path(File.dirname(__FILE__)).freeze
+CONFIG = YAML.load(File.read("#{ROOT_DIR}/config/config.yml")).freeze
+
 
 Sinatra::Application.set(
 :run         => false,
