@@ -1,0 +1,16 @@
+House Price Stalker!
+--------------------
+
+This is a wee Sinatra app that I'm going to use to obsessively track the
+estimated value of my house. I have horrific negative equity and hate where
+I live, so knowing the value of my house, particularly the trending
+information I can easily see from a ling graph, is pretty important to me.
+
+If it's important to you, fork this, change the appropriate things in the
+example files in config/ and go to it!
+
+This app isn't what you'd call polished. The code's pretty filthy and the
+interface could use some more functionality. But my philosophy is to get
+something done to the point I can use it as quickly as I can, since there's
+no point polishing up something I won't actually ever use. Good enough is 
+good enough.
