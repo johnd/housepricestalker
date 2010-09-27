@@ -4,7 +4,8 @@ $(function () {
 			$.plot($("#graph"), [{
 				data: debt,
 				color: "red",
-				label: "Debt"
+				label: "Debt",
+				points: { show: false }
 			},
 			{
 				data: prices,
