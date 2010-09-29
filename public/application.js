@@ -29,9 +29,9 @@ $(function () {
 				display: 'none',
 				top: y + 5,
 				left: x + 5,
-				border: '1px solid #fdd',
+				border: '1px solid #ddd',
 				padding: '2px',
-				'background-color': '#fee',
+				'background-color': '#eee',
 				opacity: 0.80
 			}
 		).appendTo("body").fadeIn(200);
