@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
+require 'yaml'
 
 ROOT_DIR = File.expand_path(File.dirname(__FILE__)).freeze
 CONFIG = YAML.load(File.read("#{ROOT_DIR}/config/config.yml")).freeze
