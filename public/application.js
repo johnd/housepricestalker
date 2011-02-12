@@ -1,26 +1,71 @@
-$(function () {
+
+	var datasets = {};
+
 	$.getJSON("/prices.json", function (prices) {
-		$.getJSON("/debt.json", function (debt) {
-			$.plot($("#graph"), [{
-				data: debt,
-				color: "red",
-				label: "Debt",
-				points: { show: false }
-			},
-			{
-				data: prices,
-				label: "Est. Value"
-			}], {
+		datasets.est_value = {
+			label: "Est. Value",
+			data: prices
+			};
+	});
+	$.getJSON("/debt.json", function (debt) {
+		datasets.debt = {
+			label: "Debt",
+			data: debt,
+			color: "red"
+			};
+
+	});
+
+    // insert checkboxes 
+    var choiceContainer = $("#choices");
+    $.each(datasets, function(key, val) {
+        choiceContainer.append('<br/><input type="checkbox" name="' + key +
+                               '" checked="checked" id="id' + key + '">' +
+                               '<label for="id' + key + '">'
+                                + val.label + '</label>');
+    });
+    choiceContainer.find("input").click(plotAccordingToChoices);
+
+
+    function plotAccordingToChoices() {
+        var data = [];
+
+        choiceContainer.find("input:checked").each(function () {
+            var key = $(this).attr("name");
+            if (key && datasets[key])
+                data.push(datasets[key]);
+        });
+
+        if (data.length > 0)
+            $.plot($("#graph"), data, {
 				xaxis: {
 					mode: "time",
 					timeformat: "%y/%m/%d"
 				},
 				grid: { hoverable: true, clickable: true },
 				lines: { show: true },
-				points: { show: true }
-			});
-		});
-	});
+            });
+    }
+
+	//     plotAccordingToChoices();
+	// $.plot($("#graph"), [{
+	// 	data: debt,
+	// 	color: "red",
+	// 	label: "Debt",
+	// 	points: { show: false }
+	// },
+	// {
+	// 	data: prices,
+	// 	label: "Est. Value"
+	// }], {
+	// 	xaxis: {
+	// 		mode: "time",
+	// 		timeformat: "%y/%m/%d"
+	// 	},
+	// 	grid: { hoverable: true, clickable: true },
+	// 	lines: { show: true },
+	// 	points: { show: true }
+	// });
 
 	function showTooltip(x, y, contents) {
 		$('<div id="tooltip">' + contents + '</div>').css(
@@ -57,4 +102,3 @@ $(function () {
 		}
 	});
 
-});
