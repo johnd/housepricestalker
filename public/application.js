@@ -44,7 +44,7 @@ $(function(){
 				});
 			}
 
-			choiceContainer.find("input").click(plotAccordingToChoices);
+			plotAccordingToChoices();
 
 
 
