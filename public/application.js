@@ -7,81 +7,81 @@ $(function(){
 			label: "Est. Value",
 			data: prices
 		};
-	});
-	$.getJSON("/debt.json", function (debt) {
-		datasets.debt = {
-			label: "Debt",
-			data: debt,
-			color: "red"
-		};
-
-	});
-
-	// insert checkboxes 
-	var choiceContainer = $("#choices");
-	$.each(datasets, function(key, val) {
-		choiceContainer.append('<br/><input type="checkbox" name="' + key +
-		'" checked="checked" id="id' + key + '">' +
-		'<label for="id' + key + '">'
-		+ val.label + '</label>');
-	});
-	choiceContainer.find("input").click(plotAccordingToChoices);
+		$.getJSON("/debt.json", function (debt) {
+			datasets.debt = {
+				label: "Debt",
+				data: debt,
+				color: "red"
+			};
 
 
-	function plotAccordingToChoices() {
-		var data = [];
+			// insert checkboxes 
+			var choiceContainer = $("#choices");
+			$.each(datasets, function(key, val) {
+				choiceContainer.append('<br/><input type="checkbox" name="' + key +
+				'" checked="checked" id="id' + key + '">' +
+				'<label for="id' + key + '">'
+				+ val.label + '</label>');
+			});
+			
+			function plotAccordingToChoices() {
+				var data = [];
 
-		choiceContainer.find("input:checked").each(function () {
-			var key = $(this).attr("name");
-			if (key && datasets[key])
-			data.push(datasets[key]);
-		});
+				choiceContainer.find("input:checked").each(function () {
+					var key = $(this).attr("name");
+					if (key && datasets[key])
+					data.push(datasets[key]);
+				});
 
-		if (data.length > 0)
-		$.plot($("#graph"), data, {
-			xaxis: {
-				mode: "time",
-				timeformat: "%y/%m/%d"
-			},
-			grid: { hoverable: true, clickable: true },
-			lines: { show: true },
-		});
-	}
-
-
-	function showTooltip(x, y, contents) {
-		$('<div id="tooltip">' + contents + '</div>').css(
-			{
-				position: 'absolute',
-				display: 'none',
-				top: y + 5,
-				left: x + 5,
-				border: '1px solid #ddd',
-				padding: '2px',
-				'background-color': '#eee',
-				opacity: 0.80
+				if (data.length > 0)
+				$.plot($("#graph"), data, {
+					xaxis: {
+						mode: "time",
+						timeformat: "%y/%m/%d"
+					},
+					grid: { hoverable: true, clickable: true },
+					lines: { show: true },
+				});
 			}
-		).appendTo("body").fadeIn(200);
-	}
 
-	var previousPoint = null;
-	$("#graph").bind("plothover", function (event, pos, item) {
+			choiceContainer.find("input").click(plotAccordingToChoices);
 
-		if (item) {
-			if (previousPoint != item.datapoint) {
-				previousPoint = item.datapoint;
 
-				$("#tooltip").remove();
-				var x = item.datapoint[0].toFixed(2),
-				y = item.datapoint[1].toFixed(2);
 
-				showTooltip(item.pageX, item.pageY,	item.series.label + ": &pound;" + y);
+			function showTooltip(x, y, contents) {
+				$('<div id="tooltip">' + contents + '</div>').css(
+					{
+						position: 'absolute',
+						display: 'none',
+						top: y + 5,
+						left: x + 5,
+						border: '1px solid #ddd',
+						padding: '2px',
+						'background-color': '#eee',
+						opacity: 0.80
+					}
+				).appendTo("body").fadeIn(200);
 			}
-		}
-		else {
-			$("#tooltip").remove();
-			previousPoint = null;            
-		}
+
+			var previousPoint = null;
+			$("#graph").bind("plothover", function (event, pos, item) {
+
+				if (item) {
+					if (previousPoint != item.datapoint) {
+						previousPoint = item.datapoint;
+
+						$("#tooltip").remove();
+						var x = item.datapoint[0].toFixed(2),
+						y = item.datapoint[1].toFixed(2);
+
+						showTooltip(item.pageX, item.pageY,	item.series.label + ": &pound;" + y);
+					}
+				}
+				else {
+					$("#tooltip").remove();
+					previousPoint = null;            
+				}
+			});
+		});
 	});
 });
-
