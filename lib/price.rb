@@ -3,6 +3,7 @@ require 'dm-validations'
 require 'dm-timestamps'
 require 'dm-serializer'
 require 'dm-migrations'
+require 'active_support/all'
 
 DataMapper.setup(:default, "sqlite3://#{ROOT_DIR}/db/housepricestalker.sqlite3")
 
