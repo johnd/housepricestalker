@@ -44,8 +44,8 @@ $(function(){
 				});
 			}
 
+			choiceContainer.find("input").click(plotAccordingToChoices);
 			plotAccordingToChoices();
-
 
 
 			function showTooltip(x, y, contents) {
