@@ -7,10 +7,10 @@ $(function(){
 			label: "Est. Value",
 			data: prices
 		};
-		$.getJSON("/debt.json", function (debt) {
-			datasets.debt = {
-				label: "Debt",
-				data: debt,
+		$.getJSON("/target.json", function (debt) {
+			datasets.target = {
+				label: "Target",
+				data: target,
 				color: "red"
 			};
 

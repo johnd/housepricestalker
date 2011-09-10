@@ -4,11 +4,11 @@ get '/prices.json' do
   Price.prices.to_json
 end
 
-get '/debt.json' do # TODO: find a less ugly way of doing this
-  debt = CONFIG['debt']
+get '/target.json' do # TODO: find a less ugly way of doing this
+  target = CONFIG['target']
   data = []
   Price.prices.each do | thing |
-    data << [ thing[0], debt]
+    data << [ thing[0], target]
   end
   
   data.to_json
