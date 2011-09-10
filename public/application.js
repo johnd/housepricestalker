@@ -8,8 +8,8 @@ $(function(){
 			data: prices
 		};
 		$.getJSON("/target.json", function (target) {
-			datasets.target = {
-				label: "Target",
+			datasets.target_value = {
+				label: "Target Value",
 				data: target,
 				color: "red"
 			};
